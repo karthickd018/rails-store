@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see: https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: store_development
+
+test:
+  <<: *default
+  database: store_test
+
+credentials: &credentials
+  database: <%= ENV.fetch('DB_NAME', nil) %>
+  username: <%= ENV.fetch('DB_USER_NAME', nil) %>
+  password: <%= ENV.fetch('DB_PASSWORD', nil) %>
+  host: <%= ENV.fetch('DB_HOST', nil) %>
+
+production:
+  <<: *default
+  <<: *credentials

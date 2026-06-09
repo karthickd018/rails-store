@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  postgres-db:
+    image: postgres:15
+    container_name: postgres-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: secret123
+      POSTGRES_DB: rails_production
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  rails-app:
+    image: store-app:latest
+    container_name: rails-app
+    depends_on:
+      - postgres-db
+    restart: unless-stopped
+    environment:
+      RAILS_MASTER_KEY: "82bd6aa4873741005e93300e00406fbb"
+      DATABASE_URL: "postgres://rails:secret123@postgres-db:5432/rails_production"
+    ports:
+      - "3000:3000"
+    command: >
+      sh -c "bin/rails db:prepare && bin/rails server -b 0.0.0.0 -p 3000"
+
+volumes:
+  pg_data:
