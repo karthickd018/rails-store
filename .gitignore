@@ -37,3 +37,13 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform.tfvars
+
+# Rails
+log/*
+tmp/*
+storage/*
