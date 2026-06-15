@@ -46,7 +46,6 @@ RUN groupadd --system --gid 1000 rails && \
 
 RUN chmod +x /rails/start.sh
 
-# No USER rails — nginx needs root to bind port 80
 
 EXPOSE 80
 
