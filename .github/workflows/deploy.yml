@@ -33,7 +33,7 @@ jobs:
 
       - name: Upload Source
         run: |
-          aws s3 cp source.zip s3://rails-store-source-2563d27c/source.zip
+          aws s3 cp source.zip s3://rails-store-source-5737de2d/source.zip
 
       - name: Trigger Pipeline
         run: |
