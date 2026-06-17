@@ -128,13 +128,13 @@ section.settings nav a {
 }
 
 .submit-button {
-  background-color: #d1cb14;
+  background-color: #d1143d;
   color: white;
   border: none;
   cursor: pointer;
 }
 .submit-button:hover {
-  background-color: #1d1f0e;
+  background-color: #e31d6f;
 }
 
 a.form-control {
