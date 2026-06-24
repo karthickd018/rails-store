@@ -4,9 +4,9 @@ phases:
   pre_build:
     commands:
       - echo Logging into Amazon ECR...
-      - aws ecr get-login-password --region ap-south-2 | docker login --username AWS --password-stdin 247332612707.dkr.ecr.ap-south-2.amazonaws.com
+      - aws ecr get-login-password --region ap-south-2 | docker login --username AWS --password-stdin 915079919337.dkr.ecr.ap-south-2.amazonaws.com
 
-      - REPOSITORY_URI=247332612707.dkr.ecr.ap-south-2.amazonaws.com/store-app
+      - REPOSITORY_URI=915079919337.dkr.ecr.ap-south-2.amazonaws.com/store-app
       - IMAGE_TAG=latest
 
   build:
