@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::247332612707:role/github-actions-rails-store
+          role-to-assume: arn:aws:iam::915079919337:role/github-actions-rails-store
           aws-region: ap-south-2
 
       - name: Create Zip
@@ -33,7 +33,7 @@ jobs:
 
       - name: Upload Source
         run: |
-          aws s3 cp source.zip s3://rails-store-source-5737de2d/source.zip
+          aws s3 cp source.zip s3://rails-store-source-karthickcloud/source.zip
 
       - name: Trigger Pipeline
         run: |
