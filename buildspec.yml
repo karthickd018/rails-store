@@ -3,25 +3,32 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging into Amazon ECR...
-      - aws ecr get-login-password --region ap-south-2 | docker login --username AWS --password-stdin 915079919337.dkr.ecr.ap-south-2.amazonaws.com
+      - echo "Logging into Amazon ECR..."
 
-      - REPOSITORY_URI=915079919337.dkr.ecr.ap-south-2.amazonaws.com/store-app
-      - IMAGE_TAG=latest
+      # Extract registry from repository URI
+      - export ECR_REGISTRY=$(echo $REPOSITORY_URI | cut -d'/' -f1)
+
+      # Login to Amazon ECR
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
 
   build:
     commands:
-      - echo Build started
+      - echo "Build started on $(date)"
+
+      # Build Docker image
       - docker build --platform linux/amd64 -t $REPOSITORY_URI:$IMAGE_TAG .
 
   post_build:
     commands:
-      - echo Pushing image...
+      - echo "Build completed on $(date)"
+      - echo "Pushing Docker image..."
+
+      # Push Docker image to ECR
       - docker push $REPOSITORY_URI:$IMAGE_TAG
 
-      - echo Creating imagedefinitions.json
-
-      - printf '[{"name":"rails-app","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      # Create image definitions file for ECS deployment
+      - echo "Creating imagedefinitions.json"
+      - printf '[{"name":"rails-app","imageUri":"%s"}]' "$REPOSITORY_URI:$IMAGE_TAG" > imagedefinitions.json
 
 artifacts:
   files:

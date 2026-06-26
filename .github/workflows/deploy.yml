@@ -34,8 +34,3 @@ jobs:
       - name: Upload Source
         run: |
           aws s3 cp source.zip s3://rails-store-source-karthickcloud/source.zip
-
-      - name: Trigger Pipeline
-        run: |
-          aws codepipeline start-pipeline-execution \
-            --name rails-store-pipeline
